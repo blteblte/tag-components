@@ -19,7 +19,12 @@
         <wrsts-tab-control-tab>tab 3</wrsts-tab-control-tab>
       </wrsts-tab-control-tabs>
       <wrsts-tab-control-contents>
-        <wrsts-tab-control-content class="active">content 1</wrsts-tab-control-content>
+        <wrsts-tab-control-content class="active">
+          <select>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </wrsts-tab-control-content>
         <wrsts-tab-control-content>content 2</wrsts-tab-control-content>
         <wrsts-tab-control-content>content 3</wrsts-tab-control-content>
       </wrsts-tab-control-contents>
@@ -27,8 +32,8 @@
 
     <script>
       var wrstsTabControl = document.getElementById('wrsts-tab-control')
-      wrstsTabControl.addEventListener('change', function(e) {
-        console.log('wrsts-tab-control:change', e)
+      wrstsTabControl.addEventListener('wrsts:change', function(e) {
+        console.log('wrsts:change', e)
       })
     </script>
   </div>

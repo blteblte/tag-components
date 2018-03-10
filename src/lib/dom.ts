@@ -1,4 +1,4 @@
-export function removeClass($element, className) {
+export function removeClass($element: HTMLElement, className: string) {
   if (!$element) { return }
   var currentClassName = $element.className
   var newClassName = currentClassName.replace(new RegExp('(?:^|\\s)' + className + '(?!\\S)') ,'')
@@ -8,12 +8,12 @@ export function removeClass($element, className) {
   }
 }
 
-export function addClass($element, className) {
+export function addClass($element: HTMLElement, className: string) {
   if (!$element) { return }
   $element.className += ($element.className !== '' ? ' ' : '') + className
 }
 
-export function hasClass($element, className) {
+export function hasClass($element: HTMLElement, className: string) {
   return ($element.className || '').toLowerCase().indexOf(className.toLowerCase()) > -1
 }
 

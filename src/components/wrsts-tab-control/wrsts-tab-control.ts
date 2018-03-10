@@ -30,7 +30,7 @@ function bindTabControl(target: HTMLElement) {
       })
 
       if (clickIndex !== activeIndex) {
-        emitEvent(target, 'change')
+        emitEvent(target, 'wrsts:change')
       }
       activeIndex = clickIndex
     })

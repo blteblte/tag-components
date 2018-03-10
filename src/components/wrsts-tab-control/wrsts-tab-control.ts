@@ -1,4 +1,4 @@
-import { hasClass, addClass, removeClass } from '../../lib/dom';
+import { hasClass, addClass, removeClass, emitEvent } from '../../lib/dom';
 
 function bind() {
   Array.prototype.slice.call(
@@ -7,6 +7,7 @@ function bind() {
 }
 
 function bindTabControl(target: HTMLElement) {
+
   const tabs = Array.prototype.slice.call(
     target.children[0].children
   ) as HTMLElement[]
@@ -14,6 +15,8 @@ function bindTabControl(target: HTMLElement) {
   const contents = Array.prototype.slice.call(
     target.children[1].children
   ) as HTMLElement[]
+
+  let activeIndex = tabs.findIndex(t => hasClass(t, 'active'))
 
   tabs.forEach((tab, clickIndex) => {
     tab.addEventListener('click', () => {
@@ -25,6 +28,11 @@ function bindTabControl(target: HTMLElement) {
         if (i === clickIndex) !hasClass(x, 'active') && addClass(x, 'active')
         else hasClass(x, 'active') && removeClass(x, 'active')
       })
+
+      if (clickIndex !== activeIndex) {
+        emitEvent(target, 'change')
+      }
+      activeIndex = clickIndex
     })
   })
 }

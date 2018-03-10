@@ -1,0 +1,49 @@
+@import '../../scss/variables.scss';
+
+@keyframes wrsts-tab-control-content-in {
+  0% { opacity: 0; transform: scale(.99, .99); }
+  100% { opacity: 1; transform: scale(1, 1); }
+}
+
+wrsts-tab-control {
+  display: block;
+
+  wrsts-tab-control-tabs {
+    display: block;
+    user-select: none;
+
+    wrsts-tab-control-tab {
+      display: inline-block;
+      background-color: $color-tabs-bg-pasive;
+      color: $color-tabs-font;
+      padding: 10px 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color .2s ease-in-out;
+      box-shadow: $box-shadow-tabs-tab;
+      &:hover {
+        background-color: darken($color-tabs-bg-pasive, 5%);
+      }
+      &.active {
+        background-color: $color-tabs-bg-active;
+      }
+    }
+  }
+
+  wrsts-tab-control-contents {
+    display: block;
+
+    wrsts-tab-control-content {
+      display: none;
+      padding: 10px 8px;
+      background-color: $color-tabs-bg-active;
+      color: $color-tabs-font;
+      box-shadow: $box-shadow-form;
+      animation: wrsts-tab-control-content-in .2s ease-in-out;
+
+      &.active {
+        display: block;
+      }
+    }
+  }
+}

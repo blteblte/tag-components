@@ -18,8 +18,13 @@
   },
   "homepage": "https://github.com/blteblte/tag-components#readme",
   "devDependencies": {
+    "css-loader": "^0.28.10",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.0.6",
+    "mini-css-extract-plugin": "^0.2.0",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
     "webpack": "^4.1.1",

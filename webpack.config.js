@@ -1,7 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path')
-// var webpack = require('webpack')
 
 module.exports = {
 
@@ -40,11 +39,13 @@ module.exports = {
         use: [{
             loader: "style-loader" // creates style nodes from JS strings
         }, {
-          loader: MiniCssExtractPlugin.loader
+          loader: MiniCssExtractPlugin.loader // extract css to files
         }, {
-            loader: "css-loader" // translates CSS into CommonJS
+          loader: "css-loader" // translates CSS into CommonJS
         }, {
-            loader: "sass-loader" // compiles Sass to CSS
+          loader: "postcss-loader"
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
         }]
       }
     ]
@@ -66,16 +67,5 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html'
     })
-  ],
-
-  // stats: {
-  //     colors: true
-  // },
-  // devtool: 'source-map',
-
-  // devServer: {
-  //   contentBase: path.join(__dirname, 'dist'),
-  //   compress: false,
-  //   port: 9000
-  // }
+  ]
 };

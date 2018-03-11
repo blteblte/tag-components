@@ -1,4 +1,6 @@
-import { hasClass, addClass, removeClass, emitEvent } from '../../lib/dom';
+import { hasClass, emitEvent } from '../../lib/dom';
+import { canToggleClass } from '../../lib/can-toggle-class';
+import { canRoute } from '../../lib/can-route';
 import '../../lib/polyfills/array#findIndex';
 import '../../lib/polyfills/array#find';
 import './wrsts-tab-control.scss'
@@ -14,10 +16,10 @@ const tabControl = (target: HTMLElement) => {
   let state: TabControlState = {
       target
     , tabs:     Array.prototype.slice.call(
-                  target.children[0].children
+                  (target.children[0] || {} as any).children
                 ) as HTMLElement[]
     , contents: Array.prototype.slice.call(
-                  target.children[1].children
+                  (target.children[1] || {} as any).children
                 ) as HTMLElement[]
     , activeIndex: -1
   }
@@ -28,58 +30,7 @@ const tabControl = (target: HTMLElement) => {
   }
 }
 
-const canToggleClass = (state, className: string, arrKeys: string[]) => ({
-  toggleClass: (index) => {
-    arrKeys.forEach(key => {
-      state[key].forEach((x, i) => {
-        if (i === index) !hasClass(x, className) && addClass(x, className)
-        else hasClass(x, className) && removeClass(x, className)
-      })
-    })
-  }
-})
-
-interface RouteCallback {
-  routeHash: string
-  key: string
-  target: HTMLElement
-  index: number
-}
-
-const canRoute = (state, eventName: string, arrKeys: string[]) => ({
-
-  route: (callback: (route: RouteCallback) => any) => {
-    arrKeys.forEach(key => {
-      const routes: RouteCallback[] = []
-      state[key].forEach((x, i) => {
-        const routeHash = x.getAttribute('route')
-        if (routeHash !== null) {
-          routes.push({ key, routeHash, target: x, index: i })
-          x.addEventListener(eventName, () => { window.location.href = `#/${routeHash}` })
-        }
-      })
-      if (routes.length) {
-        /*  */
-        const initialRouteHash = (window.location.hash || '').replace('#/', '').toLowerCase()
-        if (initialRouteHash !== '') {
-          const route = routes.find(x => x.routeHash.toLowerCase() ===  initialRouteHash)
-          if(route) { callback(route) }
-        }
-        /*  */
-        window.addEventListener('hashchange', () => {
-          const routeHash = (window.location.hash || '').replace('#/', '')
-          const route = routes.find(x => x.routeHash.toLowerCase() === routeHash.toLowerCase())
-          if (route) { callback(route) }
-        })
-
-      }
-    })
-  }
-
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-
+function bind() {
   Array.prototype.slice.call(
     document.querySelectorAll('wrsts-tab-control')
   ).forEach(target => {
@@ -104,5 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
   })
+}
 
-})
+document.addEventListener('DOMContentLoaded', bind)
